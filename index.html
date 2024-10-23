@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Food Cards</title>
+    <style>
+        #card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        div.card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 150px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>General Food Cards</h1>
+    <div id="card-container"></div>
+    <button onclick="window.location.href='create-post.html'">Create Post</button>
+    <button onclick="window.location.href='seafood.html'">Go to Seafood Cards</button>
+
+    <script>
+        const category = 'general'; // Set category for this page
+        const cardData = JSON.parse(localStorage.getItem(`${category}CardData`)) || [];
+
+        // Function to generate the cards dynamically
+        function cardGenerate() {
+            const cardContainer = document.getElementById("card-container");
+            if (cardContainer) {
+                cardContainer.innerHTML = cardData
+                    .map(
+                        (data) =>
+                            `<div class="card">
+                                <img src="${data.image}" alt="${data.title}" style="max-width: 100%;"/>
+                                <h3>${data.title}</h3>
+                                <p>${data.description}</p>
+                                <a href="https://api.whatsapp.com/send?phone=+923122020626&text=Hello Is This Available?" class="card-button">BUY
+        NOW </a>
+
+                            </div>`
+                    )
+                    .join("");
+            } else {
+                console.error("Card container not found");
+            }
+        }
+
+        // Initial call to display the pre-existing cards
+        cardGenerate();
+    </script>
+</body>
+</html>
